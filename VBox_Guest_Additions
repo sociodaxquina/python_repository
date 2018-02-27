@@ -1,0 +1,24 @@
+## VirtualBox Guest Additions
+
+https://askubuntu.com/questions/22743/how-do-i-install-guest-additions-in-a-virtualbox-vm
+
+#1) Install dkms. From the guest run:
+sudo apt-get install dkms
+
+#2) From the VirtualBox VM window menu select: Devices --> Insert Guest Additions CD image...
+
+#3) Use blkid to identify the CD-ROM device. From the guest run:
+sudo blkid
+'''
+One of the lines in the output should look like this:
+/dev/sr0: LABEL="VBOXADDITIONS_4.3.16_95972" TYPE="iso9660"
+The first part (/dev/sr0) is the name of the CD-ROM device.
+'''
+
+#4) Mount the CD (replace /dev/sr0 by the device name found above):
+sudo mount /dev/sr0 /media/cdrom/
+
+#5) Run the Guest Additions installer:
+sudo sh /media/cdrom/VBoxLinuxAdditions.run
+
+#6) Reboot the guest.
