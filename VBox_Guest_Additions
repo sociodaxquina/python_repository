@@ -23,3 +23,6 @@ sudo mount /dev/sr0 /media/cdrom/
 sudo sh /media/cdrom/VBoxLinuxAdditions.run
 
 #6) Reboot the guest.
+
+
+##
