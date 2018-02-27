@@ -1,5 +1,6 @@
 ##Progress bar
 
+#Function Definition
 import sys
 
 def progress(count, total, status=''):
@@ -12,8 +13,7 @@ def progress(count, total, status=''):
     sys.stdout.write('[%s] %s%s ...%s\r' % (bar, percents, '%', status))
     sys.stdout.flush()
 
-##Example: application
-
+#Example: application
 import time 
 
 print('\n[Start]')
