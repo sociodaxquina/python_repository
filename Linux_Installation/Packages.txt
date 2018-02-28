@@ -1,0 +1,36 @@
+## Packages for Linux-Debian
+###########################################
+
+##Search any package (options):
+  $ apt-cache search {package}
+  $ apt-cache search wget
+  $ apt-cache search wget | grep wget
+  $ apt search wget
+
+##Install any package:
+  $ sudo apt-get install {package-name-here}
+
+###########################################
+
+##Package: wget
+  Link:
+    https://www.cyberciti.biz/faq/how-to-install-wget-togetrid-of-error-bash-wget-command-not-found/
+  Description: 
+    Grab or download file using the following syntax
+  How to install:
+    $ sudo apt-get install wget
+  How to use command:
+    $ wget http://url/file
+    $ wget ftp://domain/file.tar.gz '''
+
+##Package: Sublime3 (x64)
+  Link:
+    https://www.simonewebdesign.it/how-to-install-sublime-text-3-on-debian/
+  Description:
+    Text editor for code, markup and prose
+  How to install:
+    $ wget http://c758482.r82.cf2.rackcdn.com/sublime-text_build-3083_amd64.deb
+    $ sudo dpkg -i sublime-text_build-3083_amd64.deb
+  How to use command:
+    $ subl file.py
+    $ subl 
