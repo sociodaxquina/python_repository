@@ -1,4 +1,6 @@
-##Progress bar
+## Progress bar
+#Link: --
+#Comments: Progress bar for a job
 
 #Function Definition
 import sys
@@ -25,6 +27,5 @@ while i < total:
     i += 1
 print('\n[Done]')
 print('')
-
 
 ##
