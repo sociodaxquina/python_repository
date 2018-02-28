@@ -6,3 +6,5 @@ import inspect
 from m import p
 
 print(inspect.getmodule(p))
+
+#
