@@ -21,4 +21,21 @@ print(create_path)
 #output: /folder1/folder2/folder3/file.json
 
 
+##Example: HTM 
+import os
+import pandas as pd
+import numpy as np
+
+#Identify /data directory
+file_path = os.path.dirname(os.path.realpath(__file__))
+root_path = os.path.split(file_path)[0]
+dataDir_path = root_path + '/data'
+print(dataDir_path)
+
+#full path of each file
+for root, dirs, files in os.walk(dataDir_path):
+    for name in files:
+       name = str(name)
+       name = os.path.realpath(os.path.join(root,name))
+       print name
 
