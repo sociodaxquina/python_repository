@@ -17,8 +17,9 @@
   $ apt-get install python-<package_name>
   $ apt-get install python-jinja2
   ou
+  $ pip search <package_name>
   $ sudo pip install <package_name>
-  $ sudo pip install yaml
+  $ sudo pip install pyyaml
   
 ###########################################
 
