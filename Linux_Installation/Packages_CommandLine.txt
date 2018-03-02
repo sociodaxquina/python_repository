@@ -14,8 +14,6 @@
   $ apt-cache policy python-pip
   $ apt-cache policy python-numpy
   ou
-  
-
   $ apt-get install python-<package_name>
   $ apt-get install python-jinja2
   ou
@@ -23,6 +21,9 @@
   $ pip search <package_name>
   $ sudo pip install <package_name>
   $ sudo pip install pyyaml
+  
+ ##Upgrade package version
+ $ sudo pip install [package_name] --upgrade
   
 ###########################################
 
