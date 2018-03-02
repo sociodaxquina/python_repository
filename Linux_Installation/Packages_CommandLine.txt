@@ -16,6 +16,9 @@
   
   $ apt-get install python-<package_name>
   $ apt-get install python-jinja2
+  ou
+  $ sudo pip install <package_name>
+  $ sudo pip install yaml
   
 ###########################################
 
