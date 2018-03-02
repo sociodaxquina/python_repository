@@ -9,7 +9,14 @@
 
 ##Install any package:
   $ sudo apt-get install {package-name-here}
-
+  
+##Check/Install python packages:
+  $ apt-cache policy python-pip
+  $ apt-cache policy python-numpy
+  
+  $ apt-get install python-<package_name>
+  $ apt-get install python-jinja2
+  
 ###########################################
 
 ##Package: wget
