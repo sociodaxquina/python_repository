@@ -13,10 +13,13 @@
 ##Check/Install python packages:
   $ apt-cache policy python-pip
   $ apt-cache policy python-numpy
+  ou
   
+
   $ apt-get install python-<package_name>
   $ apt-get install python-jinja2
   ou
+  $ pip freeze | grep <package_name> #check package version installed
   $ pip search <package_name>
   $ sudo pip install <package_name>
   $ sudo pip install pyyaml
