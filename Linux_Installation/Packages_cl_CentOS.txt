@@ -1,0 +1,5 @@
+##Add internet connection
+# sudo dhclient
+
+##Install Xfce (GUI)
+Link: https://www.rootusers.com/how-to-install-xfce-gui-in-centos-7-linux/
