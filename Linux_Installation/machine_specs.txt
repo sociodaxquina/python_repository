@@ -1,0 +1,13 @@
+## machine specs
+
+#CPU
+$ cat /proc/cpuinfo
+
+#Memory :
+$ free
+$ cat /proc/meminfo
+
+#HDD:
+$ df -h
+$ sudo fdisk -l
+$ hdparm -i /dev/device (for example sda1, hda3...)
