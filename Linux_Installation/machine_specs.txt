@@ -1,4 +1,5 @@
 ## machine specs
+# https://serverfault.com/questions/112542/how-can-i-get-processor-ram-disk-specs-from-the-linux-command-line/112543
 
 #CPU
 $ cat /proc/cpuinfo
