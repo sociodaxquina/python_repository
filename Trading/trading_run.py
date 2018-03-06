@@ -3,9 +3,9 @@
 import os
 import numpy as np
 import pandas as pd
-import trading_parser, trading_utils, trading_finantialUtils
+import trading_parser, trading_utils, trading_finantialUtils, trading_ML
 
-##Variables control
+##Parameters
 depvar1=0.75
 depvar2=1
 depvar3=1
@@ -42,7 +42,9 @@ df=df.iloc[0:numLines_df,:]
 df = trading_parser.parser_league(df)
 
 ##model trainning
-#[!] requires work
+#[!] requires work«
+#trading_ML.main_train()
+#trading_ML.main_train()
 
 ##Model prediction
 #[!] requires work
@@ -77,6 +79,10 @@ df['stk'] = stk_col
 df['profit'] = profit_col
 df['banca'] = banca_actual
 
+##Simulation finantial statistics
+banca_sim_stats, banca_sim_stats_headers = trading_finantialUtils.banca_sim_stats(df)
+
+'''
 print(df.loc[:,[
 	'var1_04', 
 	'var1_05', 
@@ -87,3 +93,5 @@ print(df.loc[:,[
 	'profit',
 	'banca']]
 	)
+print(banca_sim_stats)
+'''

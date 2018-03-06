@@ -83,4 +83,22 @@ def banca_threshold(banca_temp, banca_max, banca_min, profit_temp, stk):
 
 	return profit_temp, stk
 
+def banca_sim_stats(DataFrame):
+	df = DataFrame
 
+	banca_array = np.array(df['banca'])
+
+	banca_sim_max = round(np.max(banca_array),2)
+	banca_sim_min = round(np.min(banca_array),2)
+	banca_sim_avg = round(np.average(banca_array),2)
+	banca_sim_std = round(np.std(banca_array),2)
+	banca_sim_endProfit = round(df.loc[(df.shape[0]-1),'banca'],2)
+	banca_sim_numBets = df[df.loc[:,'stk'] > 0].shape[0]
+
+	banca_sim_stats_headers = ['banca_sim_min', 'banca_sim_max', 'banca_sim_avg', 'banca_sim_std', 'banca_sim_endProfit', 'banca_sim_numBets']
+	banca_sim_stats = [banca_sim_min, banca_sim_max, banca_sim_avg, banca_sim_std, banca_sim_endProfit, banca_sim_numBets]
+
+	#print(banca_sim_stats_headers)
+	#print(banca_sim_stats)
+
+	return banca_sim_stats, banca_sim_stats_headers
