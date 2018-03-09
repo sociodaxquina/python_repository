@@ -5,7 +5,7 @@ def b_flag_depvar1(match_id, DataFrame, depvar):
 	df = DataFrame
 	depvar1 = depvar
 	id = match_id
-	id_pred_depvar1 = df.loc[df['id']==id]['pred_depvar1']
+	id_pred_depvar1 = df.loc[df['id']==id]['predicted: depvar1=1']
 	cond1 = (id_pred_depvar1 >= depvar1)
 	if (cond1.item()):
 	  b_flag=1

@@ -7,8 +7,8 @@ import trading_parser, trading_utils, trading_finantialUtils, trading_ML
 
 ##Parameters
 depvar1=0.75
-depvar2=1
-depvar3=1
+depvar2=1 # ! not implemented yet
+depvar3=1 # ! not implemented yet
 
 value='no'
 
@@ -35,20 +35,23 @@ df_raw = pd.read_excel(inputData_path)
 df = df_raw
 
 numLines_df = df.shape[0]
-df=df.iloc[:,[0,2,3,4,5,6,7,8]]
-df=df.iloc[0:numLines_df,:]
+#discard unused depvar columns -> They give NaN values
+df = df.drop(['depvar1', 'depvar2', 'depvar3', 'depvar4', 'depvar5', 'depvar6', 'depvar7'], axis=1)
+print('[1] Import input data [OK]')
 
 ##Parsing
 df = trading_parser.parser_league(df)
+print('[2] Parsing input data [OK]')
 
 ##model trainning
-#[!] requires work«
-#trading_ML.main_train()
-#trading_ML.main_train()
+model1, model2, model3, model4, model5, model6, model7 = trading_ML.main_train()
+print('[3] Train model [OK]')
 
-##Model prediction
-#[!] requires work
-df['pred_depvar1'] = df_raw.loc[:,'predicted: depvar1=1']
+##model prediction
+y_score = trading_ML.main_predict(df, model4)
+df['predicted: depvar1=1'] = y_score
+#print(df.head(10))
+print('[4] Input data prediction [OK]')
 
 ##Adding odds
 #[!] requires work
@@ -82,16 +85,14 @@ df['banca'] = banca_actual
 ##Simulation finantial statistics
 banca_sim_stats, banca_sim_stats_headers = trading_finantialUtils.banca_sim_stats(df)
 
-'''
 print(df.loc[:,[
 	'var1_04', 
 	'var1_05', 
 	'var1_08', 
-	'pred_depvar1', 
+	'predicted: depvar1=1', 
 	'odd_home', 
 	'stk', 
 	'profit',
 	'banca']]
 	)
 print(banca_sim_stats)
-'''

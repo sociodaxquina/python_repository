@@ -12,21 +12,39 @@ import matplotlib.pyplot as plt
     
 
 def main_train():
+	train_flag = 1
 	#import dataset
 	df_ml = import_dataset('merged_Ing_Esp_Pt_All_v2_TRAIN_2009-2017.xlsx')
 	#parsing
 	df_ml = trading_parser.parser_league(df_ml)
+	#filter league
+	#df_ml = df_ml[df_ml.loc[:,'var1_08']=='PT']
 	#variable transf / selection / standardization
-	df_ml_tr = var_transf(df_ml)
-	df_ml_vsel = var_sel(df_ml)
+	df_ml_vsel = var_sel(df_ml, train_flag)
 	df_ml_stdz = standardization(df_ml_vsel)
 	#data partition
 	data_train_set, data_test_set, target_train_set, target_test_set = data_partition(df_ml_stdz, 'holdout')
 	#model train/validation
-	ml_model(data_train_set, target_train_set, data_test_set,target_test_set)
+	model1, model2, model3, model4, model5, model6, model7 = ml_model(data_train_set, target_train_set, data_test_set,target_test_set)
 
-def main_predict():
-	print('main_predict(): under development')
+	return model1, model2, model3, model4, model5, model6, model7
+
+def main_predict(DataFrame, model_id):
+	train_flag = 0
+	#champion model
+	model = model_id
+	df_ml = DataFrame 
+	#filter league
+	#df_ml = df_ml[df_ml.loc[:,'var1_08']=='PT']
+	#variable transf / selection / standardization
+	df_ml_vsel = var_sel(df_ml, train_flag)
+	df_ml_stdz = standardization(df_ml_vsel)
+	#prediction
+	x_data = df_ml_stdz.loc[:,df_ml_stdz.columns!='depvar1']
+	y_score = model.predict_proba(x_data)
+	y_score = pd.DataFrame(y_score[:,1])
+
+	return y_score
 
 def import_dataset(filename):
 	dataDir_path = os.path.dirname(os.path.realpath(__file__))
@@ -35,28 +53,23 @@ def import_dataset(filename):
 	
 	return df_ml
 
-def var_transf(DataFrame):
-	df = DataFrame
-	df_transf=df.loc[:,['id', 'depvar1']]
-	df_transf["T3_1_tot_hteam_pos"]=df["var3_01"]/(df["var3_01"]+df["var3_07"]+1)
-	df_transf["T8_7_tot_0_15"]=(df["var8_25"]+df["var8_38"])/(df["var8_25"]+df["var8_38"]+df["var8_37"]+df["var8_26"]+1)
-	df_transf["T8_12_tot_76_90"]=(df["var8_35"]+df["var8_48"])/(df["var8_35"]+df["var8_48"]+df["var8_47"]+df["var8_36"]+1)
-
-	return df_transf
-
-def var_sel(input_DataFrame):
+def var_sel(input_DataFrame, train_flag):
 	df = input_DataFrame
 
-	df_varsel = df.loc[:,['id','depvar1']]
-	df_varsel['var3_05'] = df['var3_05']
-	df_varsel['var3_35'] = df['var3_35']
-	df_varsel['var4_09'] = df['var4_09']
-	df_varsel['var5_04'] = df['var5_04']
-	df_varsel['var5_09'] = df['var5_09']
-	df_varsel['var8_36'] = df['var8_36']
-	df_varsel["T3_1_tot_hteam_pos"] = df["var3_01"]/(df["var3_01"]+df["var3_07"])
-	df_varsel["T8_7_tot_0_15"] = (df["var8_25"]+df["var8_38"])/(df["var8_25"]+df["var8_38"]+df["var8_37"]+df["var8_26"]+1)
-	df_varsel["T8_12_tot_76_90"] = (df["var8_35"]+df["var8_48"])/(df["var8_35"]+df["var8_48"]+df["var8_47"]+df["var8_36"]+1)
+	if train_flag == 1:
+		df_varsel = df.loc[:,['id','depvar1']]
+	elif train_flag == 0:
+		df_varsel = df.loc[:,['id']]
+
+	df_varsel.loc[:,'var3_05'] = df.loc[:, 'var3_05']
+	df_varsel.loc[:,'var3_35'] = df.loc[:, 'var3_35']
+	df_varsel.loc[:,'var4_09'] = df.loc[:, 'var4_09']
+	df_varsel.loc[:,'var5_04'] = df.loc[:, 'var5_04']
+	df_varsel.loc[:,'var5_09'] = df.loc[:, 'var5_09']
+	df_varsel.loc[:,'var8_36'] = df.loc[:, 'var8_36']
+	df_varsel.loc[:,"T3_1_tot_hteam_pos"] = df["var3_01"]/(df["var3_01"]+df["var3_07"]+1)
+	df_varsel.loc[:,"T8_7_tot_0_15"] = (df["var8_25"]+df["var8_38"])/(df["var8_25"]+df["var8_38"]+df["var8_37"]+df["var8_26"]+1)
+	df_varsel.loc[:,"T8_12_tot_76_90"] = (df["var8_35"]+df["var8_48"])/(df["var8_35"]+df["var8_48"]+df["var8_47"]+df["var8_36"]+1)
 
 	return df_varsel
 
@@ -140,7 +153,6 @@ def ml_model(data_train_set, target_train_set, data_test_set,target_test_set):
 
     #model7 - Adaboost@svm (kernel=linear)
     from sklearn.ensemble import AdaBoostClassifier
-    from sklearn.ensemble import RandomForestClassifier
     C=1.0
     kernel='linear'
     p=True
@@ -151,11 +163,13 @@ def ml_model(data_train_set, target_train_set, data_test_set,target_test_set):
     model7.score(data_test_set,target_test_set)
     model7_desc='Adaboost@svm (kernel=linear)'
 
-#def ml_model_assess():
+    return model1, model2, model3, model4, model5, model6, model7
+'''
+def ml_model_assess(model, data_test_set, target_test_set):
 
 	#Confusion Matrix   
-    target_true=target_test_set
-    target_predicted=model1.predict(data_test_set) 
+    target_true = target_test_set
+    target_predicted = model.predict(data_test_set) 
     tn, fp, fn, tp = confusion_matrix(target_true, target_predicted).ravel()
     (tn, fp, fn, tp)
     model1_accuracy=(tp+tn)/(tp+tn+fp+fn)
@@ -167,7 +181,8 @@ def ml_model(data_train_set, target_train_set, data_test_set,target_test_set):
     print(" 2) precision: " + str(round(model1_precision,4)))
     print(" 3) true positive rate: " + str(round(model1_tpr,4)))
     print(" 4) false positive rate: " + str(round(model1_fpr,4)))
-    
+
+
     # Compute ROC curve and ROC area for class=1
     x_test=data_test_set.values
     y_true=target_test_set.values
@@ -245,4 +260,4 @@ def ml_model(data_train_set, target_train_set, data_test_set,target_test_set):
     plt.grid(b=True, which='major', color='grey', linestyle='-')
     plt.show()
 
-main()
+'''
