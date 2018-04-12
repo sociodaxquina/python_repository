@@ -1,0 +1,45 @@
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({'b_flag':[0,1,0,1,0,1,0,0,1], 'overlap':['over_1',0,0,'over_2','over_2','over_2',0,0,'over_3']})
+
+
+# multi bet flag
+overlap_groups_dict = {}
+for n in range(0, df.shape[0]):
+	group_in_line = df.loc[n, 'overlap']
+	overlap_groups_dict[group_in_line] = df.loc[n, 'overlap']
+
+overlap_group_dict_size = len(overlap_groups_dict)
+for group in overlap_groups_dict.keys():
+	group_games = []
+	for n in range(0, df.shape[0]):
+		if (df.loc[n, 'overlap'] == group):
+			group_games.append(n)
+	overlap_groups_dict[group] = group_games
+	if (len(group_games) == 1):
+		del overlap_groups_dict[group]
+
+key = 0
+if key in overlap_groups_dict: 
+    del overlap_groups_dict[key]
+
+for i in range(0, df.shape[0]):
+	if (df.loc[i, 'b_flag'] == 1)&(df.loc[i, 'overlap']==0):
+		df.loc[i, 'single_b_final'] = 1
+		df.loc[i, 'multi_b_final'] = 0
+	elif (df.loc[i, 'b_flag'] == 0):
+		df.loc[i, 'single_b_final'] = 0
+		df.loc[i, 'multi_b_final'] = 0
+	elif (df.loc[i, 'b_flag'] == 1)&(df.loc[i, 'overlap']!=0):
+		if df.loc[i, 'overlap'] in overlap_groups_dict:
+			df.loc[i, 'single_b_final'] = 0
+			df.loc[i, 'multi_b_final'] = 1
+		else:
+			df.loc[i, 'single_b_final'] = 1
+			df.loc[i, 'multi_b_final'] = 0
+
+
+
+print(df) #apenas games com b_flag=1 e len(overlap group)>1 entram para multibet ... deoutro modo vai para single bet
+print(overlap_groups_dict) #groups de overlaps e respectivos jogos dos groups
