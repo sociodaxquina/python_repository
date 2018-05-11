@@ -1,0 +1,25 @@
+## datetime_handling
+##
+## Link: https://stackoverflow.com/questions/19887353/attributeerror-str-object-has-no-attribute-strftime
+## Link: https://stackoverflow.com/questions/19480028/attributeerror-module-object-has-no-attribute-strptime
+
+from datetime import datetime, date
+
+def main ():
+    cr_date = '2013-10-31 18:23:29.000227'
+    crrdate = cr_date.strftime(cr_date,"%m/%d/%Y")
+    >>> datetime.strptime(cr_date, '%Y-%m-%d %H:%M:%S.%f')
+    datetime.datetime(2013, 10, 31, 18, 23, 29, 227)
+    >>> datetime.strptime(cr_date, '%Y-%m-%d %H:%M:%S.%f').strftime('%m/%d/%Y')
+    '10/31/2013'
+    
+from datetime import datetime
+#and access it as you are.
+#The people who made the datetime module also named their class datetime:
+#module  class    method
+datetime.datetime.strptime(date, "%Y-%m-%d")
+
+df_results = pd.read_csv(results_ch_file, sep=",", )
+df_results_scored = df_results[df_results.loc[:,'train_score'] == 'score']
+df_results_scored.loc[:, 'year_month'] = df_results_scored.loc[:,'timestamp'].apply(lambda x: datetime.strptime(x, '%Y-%m-%d %H:%M:%S')).apply(lambda x: x.strftime('%Y-%m'))
+print(df_results_scored.head(5))
