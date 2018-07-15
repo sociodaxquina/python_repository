@@ -1,0 +1,9 @@
+# Monitor Memory
+# https://www.unixtutorial.org/2009/02/monitor-linux-memory-usage-with-watch-command/
+
+# continous memory report every 2.0 seg
+$ watch cat /proc/meminfo
+
+# memory check
+$ free -h
+$ free --mega
