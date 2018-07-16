@@ -1,0 +1,18 @@
+# Min-Max scaler
+#https://spark.apache.org/docs/latest/ml-features.html#minmaxscaler
+from pyspark.ml.feature import MinMaxScaler
+
+scaler = MinMaxScaler(inputCol="features", outputCol="scaledFeatures")
+
+# Compute summary statistics and generate MinMaxScalerModel
+scalerModel = scaler.fit(prep_dataset_stage2)
+
+# rescale each feature to range [min, max].
+prep_dataset_stage3 = scalerModel.transform(prep_dataset_stage2)
+
+print('-------------------------------------------------')
+print(' > Dataset Scaled: Min-Max')
+print('-------------------------------------------------')
+print("Features scaled to range: [%f, %f]" % (scaler.getMin(), scaler.getMax()))
+prep_dataset_stage3.filter(col('label')==0).select("features", "scaledFeatures", "label").show(5, False)
+prep_dataset_stage3.filter(col('label')==1).select("features", "scaledFeatures", "label").show(5, False)
