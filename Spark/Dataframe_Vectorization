@@ -1,0 +1,36 @@
+##Vectorize de dataframe into features and labels
+from pyspark.ml.feature import VectorAssembler
+
+dataset = prep_dataset_stage1
+#input_cols = ['events', 'refPerWithMsg', 'reqMetPer_uncommon', 'reqClDevPer_android', 'sumBytesByUser']
+input_cols = dataset.columns[1:-1] #atenção, os bytes ficaram de fora pq tinham missing values
+
+#vectorize features
+vecAssembler_features = VectorAssembler(inputCols = input_cols, outputCol="features")
+dataset_vectorized = vecAssembler_features.transform(dataset)
+#label rename
+dataset_vectorized = dataset_vectorized.select('features', col('depvar').alias("label"))
+
+#dataset full ready for ML
+dataset_ML_full = dataset_vectorized.select('features', 'label')
+print(' > Dataset for ML [full version]:')
+print('   Rows count [label 0]:' + str(dataset_ML_full.filter(dataset_ML_full.label == 0).count()))
+dataset_ML_full.filter(dataset_ML_full.label == 0).show(5, False)
+print('')
+print('   Rows count [label 1]:' + str(dataset_ML_full.filter(dataset_ML_full.label == 1).count()))
+dataset_ML_full.filter(dataset_ML_full.label == 1).show(5, False)
+
+##############################################################################################
+
+#dataset 1000 rows for ML (all labels)
+#N = 10000
+#dataset_ML_sample = dataset_ML_full.sample(False, 0.1, seed=147).limit(N)
+
+#print(' > Dataset_ML_sample:')
+#print('   Rows count:' + str(dataset_ML_sample.count()))
+#dataset_ML_sample.filter(dataset_ML_sample.label==0).show(5, False)
+#dataset_ML_sample.filter(dataset_ML_sample.label==1).show(5, False)
+
+##############################################################################################
+## dataset that will be used
+prep_dataset_stage2 = dataset_ML_full
