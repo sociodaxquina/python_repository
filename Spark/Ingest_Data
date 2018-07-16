@@ -1,0 +1,16 @@
+# Storing dataset_varSel in csv (multiple csv created)
+storage_path = "/home/pfpereira/Desktop/Tese_NOVA_IMS/data/preprocessed_data/preprocessed_dataset_stage1.csv"
+dataset_varSel.write.csv(storage_path, header=True)
+print(' > preprocessed dataset stored: ' + storage_path)
+
+
+# Loading dataset_varSel from csv
+storage_path = "/home/pfpereira/Desktop/Tese_NOVA_IMS/data/preprocessed_data/preprocessed_dataset_stage1.csv"
+new_df = spark.read.csv(storage_path, header = True, inferSchema =True)
+print(' > preprocessed dataset loaded: ' + storage_path)
+
+
+# Storing dataset_varSel in csv using Pandas (1 single csv)
+storage_path = "/home/pfpereira/Desktop/Tese_NOVA_IMS/data/preprocessed_dataset_stage1.csv"
+dataset_varSel.toPandas().to_csv(storage_path, index=False)
+print(' > preprocessed dataset stored: ' + storage_path)
