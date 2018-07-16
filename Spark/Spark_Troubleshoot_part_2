@@ -1,0 +1,11 @@
+https://stackoverflow.com/questions/27075820/spark-error-not-enough-space-to-cache-partition-rdd-8-2-in-memory-free-memory
+
+#problem
+When I run a Spark job using its example code BinaryClassification.scala with my own data, it always shows the errors like "Not enough space to cache partition rdd_8_2 in memory! Free memory is 58905314 bytes.".
+I set the memory to 4G via conf = new SparkConf().setAppName(s"BinaryClassification with $params").set("spark.executor.memory", "4g"), and it doesn't work. Does anyone get any ideas? Thank you:)
+I run it locally on a Macbook Pro with 16GB ram.
+
+#solution
+Currently you are running with the default memory options, like indicated in the logs:
+14/11/22 17:07:24 INFO MemoryStore: MemoryStore started with capacity 265.1 MB
+If you are running locally, you need to set the option --driver-memory 4G instead.
