@@ -1,0 +1,10 @@
+#Experimental dataset
+
+from pyspark.ml.linalg import Vectors
+my_exp_dataset = spark.createDataFrame(
+    [(Vectors.dense([0.0],[1.5]), 0.0),
+     (Vectors.dense([0.4],[3.2]), 1.0),
+     (Vectors.dense([0.5],[5.0]), 0.0),
+     (Vectors.dense([7.6],[1.2]), 0.0),
+     (Vectors.dense([1.0],[0.5]), 1.0)] * 10,
+     ["features", "label"])
