@@ -1,0 +1,33 @@
+##################################################################
+$ lscpu
+=> output:
+
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                8
+On-line CPU(s) list:   0-7
+Thread(s) per core:    2
+Core(s) per socket:    4
+Socket(s):             1
+NUMA node(s):          1
+Vendor ID:             AuthenticAMD
+CPU family:            23
+Model:                 1
+Model name:            AMD Ryzen 5 1500X Quad-Core Processor
+Stepping:              1
+CPU MHz:               1550.000
+CPU max MHz:           3500.0000
+CPU min MHz:           1550.0000
+BogoMIPS:              6999.66
+Virtualization:        AMD-V
+L1d cache:             32K
+L1i cache:             64K
+L2 cache:              512K
+L3 cache:              8192K
+NUMA node0 CPU(s):     0-7
+
+##################################################################
+$ cat /proc/cpuinfo
+=> output:
+  Info mais detalhada de cada processador
