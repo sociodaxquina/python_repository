@@ -1,0 +1,21 @@
+###############################################
+## Data Split RNG - IP Qualys Buckets Resize ##
+###############################################
+from random import randint
+
+split_weights_1 = randint(1, 9)/10
+split_weights_1 = [split_weights_1, 1-split_weights_1]
+
+number_split_weights_2 = randint(1,3)
+
+split_weights_2_raw = []
+for rnd_num in range(1,number_split_weights_2 + 1):
+    weight = randint(1,9) 
+    split_weights_2_raw.append(weight)  
+
+sum_weights = np.sum(split_weights_2_raw)
+split_weights_2 = np.true_divide(split_weights_2_raw, sum_weights)
+
+
+print('split 1: ' + str(split_weights_1))
+print('split 2: ' + str(split_weights_2))
