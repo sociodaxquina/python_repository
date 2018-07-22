@@ -1,0 +1,10 @@
+###########################################
+## IP Relabel - IP Qualys Buckets Resize ##
+###########################################
+import string
+from random import *
+min_char = 10 #IP string has 10 chars
+max_char = 10 #IP string has 10 chars
+allchar = string.ascii_letters + string.digits
+newIP = "".join(choice(allchar) for x in range(randint(min_char, max_char)))
+print "New IP: ",newIP
