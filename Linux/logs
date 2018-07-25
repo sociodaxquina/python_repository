@@ -1,0 +1,4 @@
+#tail logs
+https://www.howtogeek.com/howto/ubuntu/a-live-view-of-a-logfile-on-linux/
+
+$ tail -f ../path/file.log
