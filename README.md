@@ -1,3 +1,3 @@
-# python_repository
-Just a repository of python code
+# code_repository
+Just a repository of code
 <º{{{{{>< Le fish
