@@ -1,4 +1,33 @@
 https://www.cyberciti.biz/faq/unix-linux-check-if-port-is-in-use-command/
-
+https://www.cyberciti.biz/faq/what-process-has-open-linux-port/
+-----------------------------------------------------------------------------------------------------
 Linux netstat syntax
 $ netstat -tulpn | grep LISTEN
+
+#output:
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN      1138/mysqld     
+tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN      850/portmap     
+tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      1607/apache2    
+tcp        0      0 0.0.0.0:55091           0.0.0.0:*               LISTEN      910/rpc.statd   
+tcp        0      0 192.168.122.1:53        0.0.0.0:*               LISTEN      1467/dnsmasq   
+
+-----------------------------------------------------------------------------------------------------
+TCP port 3306 was opened by mysqld process having PID # 1138. You can verify this using /proc, enter:
+$ ls -l /proc/1138/exe:
+
+#output:
+lrwxrwxrwx 1 root root 0 2010-10-29 10:20 /proc/1138/exe -> /usr/sbin/mysqld
+-----------------------------------------------------------------------------------------------------
+Find out the processes PID that opened tcp port 7000, enter:
+$ fuser 7000/tcp
+
+#output:
+7000/tcp:             3813
+
+$ ls -l /proc/3813/exe
+
+#output:
+lrwxrwxrwx 1 vivek vivek 0 2010-10-29 11:00 /proc/3813/exe -> /usr/bin/transmission
+-----------------------------------------------------------------------------------------------------
