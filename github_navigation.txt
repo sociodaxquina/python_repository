@@ -1,0 +1,4 @@
+#https://stackoverflow.com/questions/31861651/how-to-rename-a-directory-folder-in-githubweb/32620165
+"/"         ===> down 1 level
+"../"       ===> up 1 level
+"backspace" ===> edit folder name
