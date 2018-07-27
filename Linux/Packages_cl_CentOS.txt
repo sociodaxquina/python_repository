@@ -1,5 +1,15 @@
+## Virtual Machine + Guest Additions
+1) Sacar versão DVD (normalmente ha 2 partes mas so usam a primeira)
+2) ligar net ===> $ su ===> yum update
+3) yum install dkms gcc make kernel-devel bzip2 binutils patch libgomp glibc-headers glibc-devel kernel-headers
+4) mkdir -p /media/cdrom
+5) mount /dev/scd0 /media/cdrom
+6) sh /media/cdrom/VBoxLinuxAdditions.run
+
 ##Add internet connection
 # sudo dhclient
 
 ##Install Xfce (GUI)
 Link: https://www.rootusers.com/how-to-install-xfce-gui-in-centos-7-linux/
+
+
