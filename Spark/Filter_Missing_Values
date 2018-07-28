@@ -1,26 +1,29 @@
 ############################################################################
-#filter all missing values from bytes
+## filter all missing values from bytes
+
 print('###########################################')
 print('# Filter Missing values from bytes column #')
 print('###########################################')
 print('')
 
 # filter missing values
-df_t7 = df_t6.filter(df_t6.bytes.isNotNull())
+df_t8 = df_t7.filter(df_t7.bytes_t.isNotNull())
 
 ## report filter ###################################
 
+# paramters
+var_name = 'bytes_t'
+old_df = df_t7
+new_df = df_t8
+
 # collect statistics
-var_name = 'bytes'
+filt_report_before_all_count = old_df.count()
+filt_report_before_label0_count = old_df.filter(col('depvar') == 0).count()
+filt_report_before_label1_count = old_df.filter(col('depvar') == 1).count()
 
-filt_report_before_all_count = df_t6.count()
-filt_report_before_label0_count = df_t6.filter(col('depvar') == 0).count()
-filt_report_before_label1_count = df_t6.filter(col('depvar') == 1).count()
-
-filt_report_after_all_count = df_t7.count()
-filt_report_after_label0_count = df_t7.filter(col('depvar') == 0).count()
-filt_report_after_label1_count = df_t7.filter(col('depvar') == 1).count()
-
+filt_report_after_all_count = new_df.count()
+filt_report_after_label0_count = new_df.filter(col('depvar') == 0).count()
+filt_report_after_label1_count = new_df.filter(col('depvar') == 1).count()
 
 # gather on a dataframe
 df_filt_report = pd.DataFrame({'':['Total', 'class 0', 'class 1']})
