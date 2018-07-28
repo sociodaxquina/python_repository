@@ -41,10 +41,10 @@ df_filt_report.loc[:,'Rows before'] = [filt_report_before_all_count,
 df_filt_report.loc[:,'Rows after'] = [filt_report_after_all_count,
                                        filt_report_after_label0_count, 
                                        filt_report_after_label1_count]
-df_filt_report.loc[:,'Filtered'] = [(filt_report_before_all_count - filt_report_after_all_count),
+df_filt_report.loc[:,'Replaced'] = [(filt_report_before_all_count - filt_report_after_all_count),
                                     (filt_report_before_label0_count - filt_report_after_label0_count),
                                     (filt_report_before_label1_count - filt_report_after_label1_count)]
-df_filt_report.loc[:,' Per Filtered'] = [str(np.round((filt_report_before_all_count - filt_report_after_all_count)*100/filt_report_before_all_count,3))+'%',
+df_filt_report.loc[:,' Per Replaced'] = [str(np.round((filt_report_before_all_count - filt_report_after_all_count)*100/filt_report_before_all_count,3))+'%',
                                         str(np.round((filt_report_before_label0_count - filt_report_after_label0_count)*100/filt_report_before_label0_count,3))+'%',
                                         str(np.round((filt_report_before_label1_count - filt_report_after_label1_count)*100/filt_report_before_label1_count,3))+'%']
                  
@@ -54,3 +54,4 @@ print(' > Variable: ' + str(var_name))
 print('-----------------------------------------------------------------------')
 print(df_filt_report)
 print('-----------------------------------------------------------------------')
+
