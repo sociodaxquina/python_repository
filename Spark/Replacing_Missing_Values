@@ -1,0 +1,56 @@
+############################################################################
+## replacing missing values of col 'bytes'
+
+df_t7 = df_t6.withColumn('bytes_t', when(df_t6.bytes.isNull(), bytes_rep_val)
+                                         .otherwise(0))
+
+# report output
+print('##############################################')
+print('# Replacing Missing values from bytes column #')
+print('##############################################')
+print('')
+print(' > Replacing with value: ' + str(bytes_rep_val))
+print(' > New Feature Name: ' + 'bytes_t')
+print(' > Justificação: Valor da mediana das labels 0 e 1. É quase igual o valor')
+print('')
+      
+## report ###############################################
+
+# paramters
+var_name = 'bytes_t'
+old_df = df_t6
+new_df = df_t7
+      
+# collect statistics
+filt_report_before_all_count = old_df.count()
+filt_report_before_label0_count = old_df.filter(col('depvar') == 0).count()
+filt_report_before_label1_count = old_df.filter(col('depvar') == 1).count()
+
+filt_report_after_all_count = new_df.count()
+filt_report_after_label0_count = new_df.filter(col('depvar') == 0).count()
+filt_report_after_label1_count = new_df.filter(col('depvar') == 1).count()
+
+# gather on a dataframe
+df_filt_report = pd.DataFrame({'':['Total', 'class 0', 'class 1']})
+df_filt_report.loc[:,'Contribution'] = [str(np.round(filt_report_before_all_count*100 / filt_report_before_all_count,3)) + '%',
+                                        str(np.round(filt_report_before_label0_count*100 / filt_report_before_all_count,3))+'%', 
+                                        str(np.round(filt_report_before_label1_count*100 / filt_report_before_all_count,3))+'%',]
+df_filt_report.loc[:,'Rows before'] = [filt_report_before_all_count,
+                                       filt_report_before_label0_count, 
+                                       filt_report_before_label1_count]
+df_filt_report.loc[:,'Rows after'] = [filt_report_after_all_count,
+                                       filt_report_after_label0_count, 
+                                       filt_report_after_label1_count]
+df_filt_report.loc[:,'Filtered'] = [(filt_report_before_all_count - filt_report_after_all_count),
+                                    (filt_report_before_label0_count - filt_report_after_label0_count),
+                                    (filt_report_before_label1_count - filt_report_after_label1_count)]
+df_filt_report.loc[:,' Per Filtered'] = [str(np.round((filt_report_before_all_count - filt_report_after_all_count)*100/filt_report_before_all_count,3))+'%',
+                                        str(np.round((filt_report_before_label0_count - filt_report_after_label0_count)*100/filt_report_before_label0_count,3))+'%',
+                                        str(np.round((filt_report_before_label1_count - filt_report_after_label1_count)*100/filt_report_before_label1_count,3))+'%']
+                 
+
+# report output
+print(' > Variable: ' + str(var_name))
+print('-----------------------------------------------------------------------')
+print(df_filt_report)
+print('-----------------------------------------------------------------------')
