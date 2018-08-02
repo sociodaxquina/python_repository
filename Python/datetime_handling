@@ -1,3 +1,13 @@
+-----------------------------------------------------------------------------------------------------------------------
+## Fabio - datetime in utc [ja sem stresses]
+import datetime # get date
+import pytz # for datetime timezones
+utc = datetime.datetime.utcnow().replace(tzinfo=pytz.utc) 
+# minus 1 day
+utc = datetime.datetime.utcnow().replace(tzinfo=pytz.utc) - datetime.timedelta(days=1) 
+
+
+--------------------------------------------------------------------------------------------------------------------------
 ## datetime_handling
 ##
 ## Link: https://stackoverflow.com/questions/19887353/attributeerror-str-object-has-no-attribute-strftime
