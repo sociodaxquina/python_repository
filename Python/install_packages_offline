@@ -1,0 +1,9 @@
+##########################
+# install packages offline
+
+1) $ wget <path of the package source tar.gz from PyPi>
+2) $ tar -zxvf <package.tar.gz>   <======= open
+3) $ cd package <===== get inside folder
+4) $ sudo python2.7 setup.py install  <===== se todas as dependencias estiverem ok, corre bem. Se não irá parar e indica as dependencias
+
+
