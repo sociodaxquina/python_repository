@@ -1,3 +1,52 @@
+import datetime # get date
+import pytz # for datetime timezones
+
+def timestamp_string_to_epoch_milis(string, fmt="%Y-%m-%dT%H:%M:%S.%fZ"):
+    """
+    Converts timestamp string to epoch milis
+    
+    :arg string: the timestamp string
+    :arg fmt: the format of the timestamp string. Defaults to %Y-%m-%dT%H:%M:%S.%fZ
+    """
+    # convert timestamp string to datetime
+    dt = datetime.datetime.strptime(string, fmt).replace(tzinfo=pytz.utc)
+    # get datetime of epoch
+    init = datetime.datetime.utcfromtimestamp(0).replace(tzinfo=pytz.utc)
+    # calculate diff and return value
+    return int((dt - init).total_seconds() * 1000)
+
+def epoch_milis_to_datetime(epoch):
+    """
+    Converts datetime to epoch milis
+    
+    :arg dt: the datetime to convert
+    """
+    # create datetime and return
+    return datetime.datetime.utcfromtimestamp(float(epoch)/1000).replace(tzinfo=pytz.utc)
+
+def datetime_to_epoch_milis(dt):
+    """
+    Converts datetime to epoch milis
+    
+    :arg dt: the datetime to convert
+    """
+    # get datetime of epoch
+    init = datetime.datetime.utcfromtimestamp(0).replace(tzinfo=pytz.utc)
+    # calculate diff and return value
+    return int((dt - init).total_seconds() * 1000)
+
+def timestamp_string_to_datetime(string, fmt="%Y-%m-%dT%H:%M:%S.%fZ"):
+    """
+    Converts timestamp string to datetime
+    
+    :arg string: the timestamp string
+    :arg fmt: the format of the timestamp string. Defaults to %Y-%m-%dT%H:%M:%S.%fZ
+    """
+    # convert timestamp string to datetime and return
+    return datetime.datetime.strptime(string, fmt).replace(tzinfo=pytz.utc)
+
+
+
 -----------------------------------------------------------------------------------------------------------------------
 ## Fabio - datetime in utc [ja sem stresses]
 import datetime # get date
@@ -7,29 +56,3 @@ utc = datetime.datetime.utcnow().replace(tzinfo=pytz.utc)
 utc = datetime.datetime.utcnow().replace(tzinfo=pytz.utc) - datetime.timedelta(days=1) 
 
 
---------------------------------------------------------------------------------------------------------------------------
-## datetime_handling
-##
-## Link: https://stackoverflow.com/questions/19887353/attributeerror-str-object-has-no-attribute-strftime
-## Link: https://stackoverflow.com/questions/19480028/attributeerror-module-object-has-no-attribute-strptime
-
-from datetime import datetime, date
-
-def main ():
-    cr_date = '2013-10-31 18:23:29.000227'
-    crrdate = cr_date.strftime(cr_date,"%m/%d/%Y")
-    >>> datetime.strptime(cr_date, '%Y-%m-%d %H:%M:%S.%f')
-    datetime.datetime(2013, 10, 31, 18, 23, 29, 227)
-    >>> datetime.strptime(cr_date, '%Y-%m-%d %H:%M:%S.%f').strftime('%m/%d/%Y')
-    '10/31/2013'
-    
-from datetime import datetime
-#and access it as you are.
-#The people who made the datetime module also named their class datetime:
-#module  class    method
-datetime.datetime.strptime(date, "%Y-%m-%d")
-
-df_results = pd.read_csv(results_ch_file, sep=",", )
-df_results_scored = df_results[df_results.loc[:,'train_score'] == 'score']
-df_results_scored.loc[:, 'year_month'] = df_results_scored.loc[:,'timestamp'].apply(lambda x: datetime.strptime(x, '%Y-%m-%d %H:%M:%S')).apply(lambda x: x.strftime('%Y-%m'))
-print(df_results_scored.head(5))
