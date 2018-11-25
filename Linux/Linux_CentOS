@@ -4,9 +4,10 @@
 3) yum install dkms gcc make kernel-devel bzip2 binutils patch libgomp glibc-headers glibc-devel kernel-headers
 4) Insert Guest Additions on VBOX
 ==> se nao estiver a dar p executar as GA
-  5) mkdir -p /media/cdrom
-  6) mount /dev/scd0 /media/cdrom
-  7) sh /media/cdrom/VBoxLinuxAdditions.run
+1) $ yum update
+2) $ yum install gcc  epel-release.noarch  kernel-headers kernel-devel
+3) Insert Guest Additions on VBOX
+
 
 ##Add internet connection
 # sudo dhclient
