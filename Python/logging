@@ -1,0 +1,63 @@
+##logging
+
+## libs
+import logging, logging.handlers # logging
+
+###################
+## Logs
+
+def setup_logging(logfile):
+    # set up logging
+    if not logfile: # create log to stdout
+        handler = logging.StreamHandler(sys.stdout)
+    else: # create log to rotating file
+        handler = logging.handlers.RotatingFileHandler(
+            logfile, maxBytes=30000000, backupCount=2)
+    # create formatter
+    log_formatter = logging.Formatter(
+        '%(asctime)s [%(name)s] %(levelname)s - %(message)s')
+    # set formatter to handler
+    handler.setFormatter(log_formatter)
+    # set log level for handler
+    handler.setLevel(logging.DEBUG)
+    # set handler to log
+    logging.getLogger().addHandler(handler)
+    logging.getLogger().setLevel(logging.DEBUG)
+    logging.getLogger("urllib3").setLevel(logging.INFO)
+    #logging.getLogger("elasticsearch").setLevel(logging.INFO)
+
+################################################################################################
+## Execution
+
+setup_logging(logfile_path="/app/data1/datasets/vdfpt_AI_challenge_jan19/spark_pfpereira.log")
+logging.getLogger("main").info('')
+logging.getLogger("main").info(' > starting execution...')
+logging.getLogger("main").info('')
+
+try:
+
+	## Data Ingestion #########################################################################
+	#
+	#Description:
+	# > data ingestion tasks
+
+	logging.getLogger('main').debug("Starting [1] dataset ingestion ... ")
+    try:
+      <core code[1]>
+    except Exception as e:
+        logging.getLogger('main').error("Anormal error on the script: %s. Exiting..." % str(e))
+        logging.getLogger('main').error(traceback.format_exc())
+        raise e
+
+    print('')
+    print(' > [2] datastream input .... [Complete]')
+    print('')
+    logging.getLogger("main").info('')
+    logging.getLogger("main").info(' > [2] datastrean input .... [Complete]')
+    logging.getLogger("main").info('')
+
+
+except Exception as e:
+    logging.getLogger('main').error("Anormal error on the script: %s. Exiting..." % str(e))
+    logging.getLogger('main').error(traceback.format_exc())
+    raise e
