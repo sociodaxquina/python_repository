@@ -10,6 +10,7 @@ df = pd.DataFrame({'aaa':[1,2,3,4], 'bbb':['a', 'b', 'c', 'd']})
 df_2 = pd.DataFrame({'aaa':[1,2,3,4], 'bbb':['a', 'b', 'c', 'd'], 'bbb':['a', 'b', 'c', 'd'], 'ccc':['a', 'b', 'c', 'd'], 'ddd':['a', 'b', 'c', 'd'], 'eee':['a', 'b', 'c', 'd']})
 
 def str_to_hash(str_line, method):
+    # method can be 'md5' or 'sha224'
     str_line = str(str_line)
     if method == 'md5':
         str_line_hash = hashlib.md5(str_line).hexdigest()
