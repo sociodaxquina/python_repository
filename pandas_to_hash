@@ -1,0 +1,38 @@
+## hash md5 / sha224
+
+
+import pandas as pd
+import itertools
+import hashlib
+
+
+df = pd.DataFrame({'aaa':[1,2,3,4], 'bbb':['a', 'b', 'c', 'd']})
+df_2 = pd.DataFrame({'aaa':[1,2,3,4], 'bbb':['a', 'b', 'c', 'd'], 'bbb':['a', 'b', 'c', 'd'], 'ccc':['a', 'b', 'c', 'd'], 'ddd':['a', 'b', 'c', 'd'], 'eee':['a', 'b', 'c', 'd']})
+
+def str_to_hash(str_line, method):
+    str_line = str(str_line)
+    if method == 'md5':
+        str_line_hash = hashlib.md5(str_line).hexdigest()
+    elif method == 'sha224':
+        str_line_hash = hashlib.md5(str_line).hexdigest()
+    else:
+        print 'not valid method input'
+    #print str_line_hash
+    return str_line_hash
+
+def pandas_row_to_string(df):
+    cols = df.columns
+    df['combined'] = df[cols].apply(lambda row: '_'.join(row.values.astype(str)), axis=1)
+    #print df
+    return df
+
+def pandas_to_hash(df, method):
+    df_comb = pandas_row_to_string(df)
+    df_comb['combined_hash'] = df_comb['combined'].apply(lambda x: str_to_hash(x, method))
+    print df_comb
+
+
+pandas_to_hash(df_2, 'md5')
+pandas_to_hash(df_2, 'sha224')
+
+str_to_hash('1_a_a_a_a', 'md5')
