@@ -1,0 +1,3 @@
+## delete all files - avoid list too long
+
+find . -maxdepth 1 -name 'RCA_Relevant_Alarms_UNI_*' -delete
