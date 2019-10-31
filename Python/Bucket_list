@@ -1,5 +1,6 @@
 ## Bucket list
 
+https://stackoverflow.com/questions/312443/how-do-you-split-a-list-into-evenly-sized-chunks/19264525#19264525
 
 def SplitList(mylist, chunk_size):
     return [mylist[offs:offs+chunk_size] for offs in range(0, len(mylist), chunk_size)]
