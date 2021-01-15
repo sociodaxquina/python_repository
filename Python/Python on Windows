@@ -1,0 +1,21 @@
+
+########################################################
+## RUN PYTHON ON WINDOWS + MYSQL CONNECTION TO PANDAS ##
+########################################################
+
+1) install python on windows: 
+	!!! checkbox on path windows variable
+	https://www.python.org/ftp/python/3.8.7/python-3.8.7-amd64.exe
+
+2) On windows >>> open "cmd" >>> pip install pandas
+
+3) On windows >>> open "cmd" >>> pip install mysql-connector
+
+4) test python:
+	On windows >>> open "cmd" >>> $python
+
+5) On windows >>> open "cmd" >>> $ cd <full-path to folder with script.py>
+
+6) $python <script.py>
+
+## END ##
