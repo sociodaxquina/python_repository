@@ -1,0 +1,48 @@
+# libraries
+import mysql.connector
+import pandas as pd
+import os
+
+# --------------------------------------------------------------
+# functions
+def q7_valid_nodleb():
+	return """
+		WITH tab_controller as (
+				select *
+				from topology_managers.am_controller_eri_iub
+				where 
+					nodeb not like '%L'
+					and nodeb not like '%G'),
+			tab_valid_nodeb as (
+				select tab_controller.nodeb, tab_controller.controller, tab_controller.siu
+				from tab_controller
+				left join
+				(SELECT * 
+				FROM topology_managers.am_bts_enm
+				where tecnologia = '3G'
+					and tipo_trafico = 'TRAFICO') as tab_nodeb
+				on
+				tab_controller.nodeb = tab_nodeb.nodo and tab_controller.controller = tab_nodeb.controladora)
+				
+		select *
+		from tab_valid_nodeb
+	"""
+  
+# --------------------------------------------------------------
+# connector
+
+cnx = mysql.connector.connect(user='altran_pt', 
+                              password = 'altranL2020TGBex_26112020', 
+                              host = '10.192.144.61', 
+                              database='topology_managers', 
+                              auth_plugin='mysql_native_password')
+cursor = cnx.cursor(buffered=True)
+
+# --------------------------------------------------------------
+# SIU NODE
+
+# valid siu nodes connected to nodeb
+df_valid_nodeb = pd.read_sql(q7_valid_nodleb(), con = cnx)
+list_valid_siu = df_valid_nodeb['siu'].unique().tolist()
+print('>>>> Number of valid SIU: ' + str(len(list_valid_siu)))
+
