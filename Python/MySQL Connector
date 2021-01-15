@@ -1,3 +1,7 @@
+# Command line
+# pip install mysql-connector
+#
+
 # libraries
 import mysql.connector
 import pandas as pd
