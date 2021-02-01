@@ -1,0 +1,1 @@
+df_valid_ra_pt_fixed_grouped = df_valid_ra_pt_fixed.groupby(['ne', 'ptn_pt'])['path_fixed'].apply(list).reset_index()
