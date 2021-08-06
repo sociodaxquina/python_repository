@@ -3,6 +3,7 @@ import datetime as dt
 import pytz
 
 ## Testing timezones
+# list valid timezones: https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568
 old_timezone = pytz.timezone("UTC")
 new_timezone = pytz.timezone("Europe/Madrid")
 print(new_timezone)
