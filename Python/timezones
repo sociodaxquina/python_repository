@@ -1,0 +1,30 @@
+## libs
+import datetime as dt
+import pytz
+
+## Testing timezones
+old_timezone = pytz.timezone("UTC")
+new_timezone = pytz.timezone("Europe/Madrid")
+print(new_timezone)
+<DstTzInfo 'Europe/Madrid' LMT-1 day, 23:45:00 STD>
+
+# Now
+mydatetime = dt.datetime.now()
+print(mydatetime)
+datetime.datetime(2021, 8, 6, 11, 39, 3, 383359)
+
+## Now ==> Timezone
+mydatetime = dt.datetime.now().astimezone(pytz.timezone("Europe/Madrid"))
+print(mydatetime)
+datetime.datetime(2021, 8, 6, 11, 40, 17, 506031, tzinfo=<DstTzInfo 'Europe/Madrid' CEST+2:00:00 DST>)
+
+## Timezone ==> String (format: '2021-08-06T11:40:56CEST') 
+mydatetime = dt.datetime.now().astimezone(pytz.timezone("Europe/Madrid")).strftime("%Y-%m-%dT%H:%M:%S%Z")
+print(mydatetime)
+'2021-08-06T11:40:56CEST'
+
+## Timezone ==> String (format: '2021-08-06T11:46:28+0200') 
+mydatetime = dt.datetime.now().astimezone(pytz.timezone("Europe/Madrid")).strftime("%Y-%m-%dT%H:%M:%S%z")
+print(mydatetime)
+'2021-08-06T11:46:28+0200'
+
