@@ -1,0 +1,34 @@
+# Check if 2 IPs are in the same network
+
+import pandas as pd
+import numpy as np
+
+def ip2int(ip):
+    #converts IP to int
+    return int(ip.split('.')[0]) * 2**24 + int(ip.split('.')[1]) * 2**16 + int(ip.split('.')[2]) * 2**8 + int(ip.split('.')[3])
+
+def same_network(ip1, ip2, maskip):
+    # receives 2 IPS and mask
+    # output: True or False, both IPs to be on the same network
+    num1 = ip2int(ip1)
+    num2 = ip2int(ip2)
+    mask = ip2int(maskip)
+
+    print(ip1, num1)
+    print(ip2, num2)
+    print(maskip, mask)
+    print('')
+    print('num1 & mask:', num1 & mask)
+    print('num2 & mask:', num2 & mask)
+    print('---------------')
+
+    return num1 & mask == num2 & mask
+
+# main function    
+if __name__ == '__main__' : 
+    
+    df = pd.DataFrame({'ip1':["10.175.112.218", "17.53.128.0"], 'ip2':["10.175.112.217", "17.53.127.0"], 'maskip':["255.255.255.252", "255.255.255.252"]})
+    print(df)
+
+    df['same_network'] = np.vectorize(same_network)(df['ip1'], df['ip2'], df['maskip'])
+    print(df)
