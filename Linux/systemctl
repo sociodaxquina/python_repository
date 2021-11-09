@@ -1,0 +1,4 @@
+$systemctl enable  arangodb3.service => make available to be started
+$systemctl status  arangodb3.service => status
+$systemctl start  arangodb3.service  => start
+$systemctl stop  arangodb3.service   => stop
