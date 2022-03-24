@@ -1,0 +1,8 @@
+# linux version
+$cat /etc/os-realease
+
+# check running cores
+$lscpu
+
+# check running services on ports
+$netstat -plnt | grep LISTEN
