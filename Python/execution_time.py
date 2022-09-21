@@ -1,4 +1,5 @@
 #Execution time counter
+import time
 
 s = time.time()
 print('Execution Start')
