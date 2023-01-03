@@ -1,0 +1,30 @@
+##########################################################
+# Install pip required packages in a single command
+##########################################################
+https://note.nkmk.me/en/python-pip-install-requirements/
+
+=========================================
+How to
+=========================================
+[1] create requirements file (.txt extension)
+Example:
+###### Requirements without Version Specifiers ######
+nose
+nose-cov
+beautifulsoup4
+
+###### Requirements with Version Specifiers ######
+docopt == 0.6.1             # Version Matching. Must be version 0.6.1
+keyring >= 4.1.1            # Minimum version 4.1.1
+coverage != 3.5             # Version Exclusion. Anything except version 3.5
+Mopidy-Dirble ~= 1.1        # Compatible release. Same as >= 1.1, == 1.*
+
+[2] $ python2.8 -m pip install -r requirements.txt
+
+
+=========================================
+Additional
+=========================================
+Export current environment configuration file: pip freeze
+$ python2.8 -m pip freeze > requirements.txt
+$ python2.8 -m pip install -r requirements.txt
