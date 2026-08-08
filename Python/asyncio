@@ -1,0 +1,92 @@
+# ============================================================
+# 1. LIBRARIES
+# ============================================================
+
+import asyncio
+import time
+
+
+# ============================================================
+# 2. FUNCTIONS
+# ============================================================
+
+async def func1():
+    await asyncio.sleep(1)
+    return "Function 1 completed"
+
+
+async def func2():
+    await asyncio.sleep(1)
+    return "Function 2 completed"
+
+
+async def func3():
+    await asyncio.sleep(1)
+    return "Function 3 completed"
+
+
+# ============================================================
+# 3. EXECUTION
+# ============================================================
+
+async def main():
+
+    # --------------------------------------------------------
+    # 3.1 SINGLE-THREADED / SEQUENTIAL EXECUTION
+    # --------------------------------------------------------
+
+    start_time = time.perf_counter()
+
+    result1 = await func1()
+    result2 = await func2()
+    result3 = await func3()
+
+    sequential_time = time.perf_counter() - start_time
+
+    print("Sequential results:")
+    print(result1)
+    print(result2)
+    print(result3)
+
+    print(f"Sequential execution time: {sequential_time:.2f} seconds")
+
+
+    # --------------------------------------------------------
+    # 3.2 ASYNC CONCURRENT EXECUTION
+    # --------------------------------------------------------
+
+    start_time = time.perf_counter()
+
+    results = await asyncio.gather(
+        func1(),
+        func2(),
+        func3()
+    )
+
+    async_time = time.perf_counter() - start_time
+
+    print("\nAsync results:")
+    print(results)
+
+    print(f"Async execution time: {async_time:.2f} seconds")
+
+
+    # --------------------------------------------------------
+    # 3.3 COMPARISON
+    # --------------------------------------------------------
+
+    speedup = sequential_time / async_time
+
+    print("\n================ COMPARISON ================")
+    print(f"Sequential: {sequential_time:.2f} seconds")
+    print(f"Async:      {async_time:.2f} seconds")
+    print(f"Speedup:    {speedup:.2f}x")
+
+
+# ============================================================
+# 4. PROGRAM ENTRY POINT
+# ============================================================
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
