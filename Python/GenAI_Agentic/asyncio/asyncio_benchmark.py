@@ -4,6 +4,22 @@ Two workloads:
   1. I/O-bound  (sleep -> yields to the event loop)
   2. CPU-bound  (busy loop -> never yields)
 gather() only helps when the coroutines actually await something.
+
+Expected results:
+10 tasks, 0.1s simulated latency each
+
+I/O-BOUND
+  sync (blocking, one by one)         1.002s
+  async sequential await              1.005s
+  asyncio.gather                      0.101s <==== THIS
+  -> gather is 9.9x faster than sync
+
+CPU-BOUND
+  sync (blocking, one by one)         1.120s
+  async sequential await              1.061s
+  asyncio.gather                      1.072s <==== THIS
+  -> gather is 1.04x vs sync
+
 """
 import asyncio
 import time
